@@ -80,15 +80,31 @@
 
 
 
-<meta name="description" content="93年iOS程序员">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小胜">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="一. 了解KVC和KVOKVC和KVO是观察者模式的一种实现，以非正式协议（Category）的形式被定义在NSObject类中。
+KVC:
+@interface NSObject(NSKeyValueCoding)
+KVO:
+@interface NSObject(NSKeyValueObserving)
+KVC和KVO实现的根本是Objective-C语言的动态性和runtime。runtim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KVC和KVO的原理及使用（一）">
+<meta property="og:url" content="http://yoursite.com/2016/04/24/一._了解kvc和kvo/index.html">
 <meta property="og:site_name" content="小胜">
-<meta property="og:description" content="93年iOS程序员">
+<meta property="og:description" content="一. 了解KVC和KVOKVC和KVO是观察者模式的一种实现，以非正式协议（Category）的形式被定义在NSObject类中。
+KVC:
+@interface NSObject(NSKeyValueCoding)
+KVO:
+@interface NSObject(NSKeyValueObserving)
+KVC和KVO实现的根本是Objective-C语言的动态性和runtime。runtim">
+<meta property="og:updated_time" content="2016-04-24T13:19:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小胜">
-<meta name="twitter:description" content="93年iOS程序员">
+<meta name="twitter:title" content="KVC和KVO的原理及使用（一）">
+<meta name="twitter:description" content="一. 了解KVC和KVOKVC和KVO是观察者模式的一种实现，以非正式协议（Category）的形式被定义在NSObject类中。
+KVC:
+@interface NSObject(NSKeyValueCoding)
+KVO:
+@interface NSObject(NSKeyValueObserving)
+KVC和KVO实现的根本是Objective-C语言的动态性和runtime。runtim">
 
 
 
@@ -106,7 +122,7 @@
   };
 </script>
 
-  <title> 小胜 </title>
+  <title> KVC和KVO的原理及使用（一） | 小胜 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -127,9 +143,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -206,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -228,10 +242,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/04/24/一._了解kvc和kvo/" itemprop="url">
-                  KVC和KVO的原理及使用（一）
-                </a>
+                KVC和KVO的原理及使用（一）
               
             
           </h1>
@@ -271,9 +282,7 @@
       
 
       
-        
-          
-            <h1 id="一-了解KVC和KVO"><a href="#一-了解KVC和KVO" class="headerlink" title="一. 了解KVC和KVO"></a>一. 了解KVC和KVO</h1><p>KVC和KVO是观察者模式的一种实现，以非正式协议（Category）的形式被定义在NSObject类中。</p>
+        <h1 id="一-了解KVC和KVO"><a href="#一-了解KVC和KVO" class="headerlink" title="一. 了解KVC和KVO"></a>一. 了解KVC和KVO</h1><p>KVC和KVO是观察者模式的一种实现，以非正式协议（Category）的形式被定义在NSObject类中。</p>
 <pre><code>KVC:
 @interface NSObject(NSKeyValueCoding)
 KVO:
@@ -426,16 +435,18 @@ NSLog(@&quot;%@&quot;,[person valueForKeyPath:@&quot;allFriends.@unionOfObjects.
 </li>
 </ol>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
@@ -443,150 +454,32 @@ NSLog(@&quot;%@&quot;,[person valueForKeyPath:@&quot;allFriends.@unionOfObjects.
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/20/hexo+github搭建属于自己的博客/" rel="next" title="Hexo+Github搭建属于自己的博客">
+                <i class="fa fa-chevron-left"></i> Hexo+Github搭建属于自己的博客
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/04/20/hexo+github搭建属于自己的博客/" itemprop="url">
-                  Hexo+Github搭建属于自己的博客
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T23:49:07+08:00" content="2016-04-20">
-              2016-04-20
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <blockquote>
-<p>花了一个晚上，通过Hexo+Github，搭建了属于自己的博客。搭建的过程没有遇到什么坑。下面来交大家快速的搭建一个属于自己的博客，本文是基于mac系统下操作的。</p>
-</blockquote>
-<h2 id="1-配置环境"><a href="#1-配置环境" class="headerlink" title="1. 配置环境"></a>1. 配置环境</h2><h3 id="1-1-安装Git"><a href="#1-1-安装Git" class="headerlink" title="1.1 安装Git"></a>1.1 安装Git</h3><p>用来将本地Hexo提交到Github上.安装Xcode就自带有Git.</p>
-<h3 id="1-2-安装Node-js"><a href="#1-2-安装Node-js" class="headerlink" title="1.2 安装Node.js"></a>1.2 安装Node.js</h3><p>用来生成静态页面的。可以到Node.js<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载相应平台的最新版本，一路安装即可。</p>
-<h3 id="1-3-安装Hexo"><a href="#1-3-安装Hexo" class="headerlink" title="1.3 安装Hexo"></a>1.3 安装Hexo</h3><p>Hexo是基于Node.js的静态博客框架。Node和Git都安装好后，在桌面创建一个文件夹(如Hexo)，用来存放Hexo的配置文件.</p>
-<pre><code>cd Desktop/Hexo  //进到桌面文件夹Hexo
-npm install hexo -g      //安装Hexo
-hexo init    //初始化
-hexo generate //生成静态页面（hexo g也可以）
-hexo server    //启动本地服务，可以进行文章调试，在浏览器中输入http://localhost:4000，就可以查看生成的静态页面
-</code></pre><h2 id="2-配置Github"><a href="#2-配置Github" class="headerlink" title="2. 配置Github"></a>2. 配置Github</h2><h3 id="2-1-创建Github账号"><a href="#2-1-创建Github账号" class="headerlink" title="2.1 创建Github账号"></a>2.1 创建Github账号</h3><p>创建Github账号我就不多说了，直接去<a href="https://github.com" target="_blank" rel="external">Github</a>创建就可以了，注意username,因为你的域名将是username.github.io.</p>
-<h3 id="2-2-创建仓库"><a href="#2-2-创建仓库" class="headerlink" title="2.2 创建仓库"></a>2.2 创建仓库</h3><p>创建一个仓库(repository)来存储我们的网站,点击New repository创建新仓库, Repository name填写username.github.io.</p>
-<h2 id="3-编写发布博客"><a href="#3-编写发布博客" class="headerlink" title="3. 编写发布博客"></a>3. 编写发布博客</h2><p>接下来我们需要用Hexo初始化自己的博客，更改一些自定义设置，换上自己喜欢的主题，写上第一篇文章，发布到个人的GitHub网站上。</p>
-<h3 id="3-1-创建博客"><a href="#3-1-创建博客" class="headerlink" title="3.1 创建博客"></a>3.1 创建博客</h3><pre><code>hexo init username.github.io //username是你自己的账户名
-</code></pre><h3 id="3-2-更换主题"><a href="#3-2-更换主题" class="headerlink" title="3.2 更换主题"></a>3.2 更换主题</h3><p>更换你自己喜欢的主题,<a href="https://hexo.io/themes/" target="_blank" rel="external">更多主题</a></p>
-<pre><code>cd username.github.io
-git clone https://github.com/iissnan/hexo-theme-next themes/next
-</code></pre><p>可能需要你输入自己的Github账号密码</p>
-<h3 id="3-3-更改配置"><a href="#3-3-更改配置" class="headerlink" title="3.3 更改配置"></a>3.3 更改配置</h3><p>基础配置：打开username.github.io/_config.yml，里面都是一些配置的键值对，下面把几个必须修改的键值对列了出来，记得保存。<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="external">更多配置</a></p>
-<pre><code>title: 小胜    //博客的名字
-description: 93年的iOS程序员    //对于你的描述    
-author: 李伟胜    //你的名字
-language: zh-Hans    //语言
-theme: next    //主题名称
-deploy:
-    type: git    //使用Git发布
-      repo: https://github.com/lixiaosheng1993/lixiaosheng1993.github.io    //刚创建的Github仓库
-</code></pre><h3 id="3-4-写文章"><a href="#3-4-写文章" class="headerlink" title="3.4 写文章"></a>3.4 写文章</h3><p>所有框架都已经搭好了，可以写你的第一篇博客了。在username.github.io/source/_posts创建第一个博客，如，创建一个FirestBlog.md文件，用Markdown就开始写吧！这里推荐用<a href="http://25.io/mou/" target="_blank" rel="external">Mou</a>,它支持实时预览，既左边是你编辑 Markdown 语言，右边会实时的生成预览效果,是一款非常好用的Markdown编辑器。</p>
-<h3 id="3-5-安装Hexo-deployer-git自动部署发布工具"><a href="#3-5-安装Hexo-deployer-git自动部署发布工具" class="headerlink" title="3.5 安装Hexo-deployer-git自动部署发布工具"></a>3.5 安装Hexo-deployer-git自动部署发布工具</h3><pre><code>npm install hexo-deployer-git --save
-</code></pre><h3 id="3-6-部署"><a href="#3-6-部署" class="headerlink" title="3.6 部署"></a>3.6 部署</h3><p>将生成的静态网页文件发布至我们的Github pages中.</p>
-<pre><code>hexo clean
-hexo generate
-gexo deploy
-</code></pre><p>或者直接</p>
-<pre><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d
-</code></pre><p>以后每次写完博客，执行这条命令就可以直接上传到GitHub中了。非常方便。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，一个博客的搭建、编写、上传过程都已经写在上面了。不过还有很多好玩的配置和主题，以后再慢慢完善自己的博客。</p>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -594,6 +487,10 @@ gexo deploy
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -613,8 +510,17 @@ gexo deploy
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -650,6 +556,17 @@ gexo deploy
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-了解KVC和KVO"><span class="nav-number">1.</span> <span class="nav-text">一. 了解KVC和KVO</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#KVC"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">KVC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#KVO"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">KVO</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-KVC"><span class="nav-number">2.</span> <span class="nav-text">二. KVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-key和keyPath"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. key和keyPath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-KVC对数值、集合和结构体型属性的支持"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. KVC对数值、集合和结构体型属性的支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-KVC之集合运算符（Collection-Operators）"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. KVC之集合运算符（Collection Operators）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-简单集合运算符"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">3.1 简单集合运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-对象运算符"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">3.2 对象运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Array和Set操作符"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">3.3 Array和Set操作符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-键值验证-KVV"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 键值验证(KVV)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面是具体的代码"><span class="nav-number">2.0.5.</span> <span class="nav-text">下面是具体的代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-KVC如何访问属性值"><span class="nav-number">3.</span> <span class="nav-text">三. KVC如何访问属性值</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -746,6 +663,10 @@ gexo deploy
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
