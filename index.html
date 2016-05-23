@@ -283,9 +283,8 @@ AVCaptureDeviceInput:录制期间输入数据的管理对象，可以根据AVCap
 AVCaptureVideoPreviewLayer:相机拍摄预览层，可以实时查看拍照和录制效果，创建该对象需要知道对应的AVCaptureSession对象
 AVCaptureDevideOutput:输出数据的管理对象，用于接收输出的数据，通常使用其子类AVCaptureAudioDataOutput、AVCaptureStillImageOutput、AVCaptureVideoDataOutput、AVCaptureFileOutput, 该对象将会被添加到AVCaptureSession中管理。
 注意：前面几个对象的输出数据都是NSData类型，而AVCaptureFileOutput代表数据以文件形式输出，类似的，AVCcaptureFileOutput也不会直接创建使用，通常会使用其子类：AVCaptureAudioFileOutput、AVCaptureMovieFileOutput。当把一个输入或者输出添加到AVCaptureSession之后AVCaptureSession就会在所有相符的输入、输出设备之间建立连接（AVCaptionConnection)。
-</code></pre><p>##具体流程<br>AVCaptureSession通过把设备的麦克风/摄像头(AVCaptureDevice)实例化数据流输入到AVCaptureDeviceInput对象后，再建立连接(AVCaptureConnection)将录制数据通过数据流输出对象(AVCaptureDeviceOutput)导出，录制时通过相机预览层(AVCaptureVideoPreviewLayer)实时预览。</p>
-<p>##具体代码</p>
-<pre><code>#import &quot;ViewController.h&quot;
+</code></pre><h2 id="2-具体流程"><a href="#2-具体流程" class="headerlink" title="2. 具体流程"></a>2. 具体流程</h2><p>AVCaptureSession通过把设备的麦克风/摄像头(AVCaptureDevice)实例化数据流输入到AVCaptureDeviceInput对象后，再建立连接(AVCaptureConnection)将录制数据通过数据流输出对象(AVCaptureDeviceOutput)导出，录制时通过相机预览层(AVCaptureVideoPreviewLayer)实时预览。</p>
+<h2 id="2-1-具体代码"><a href="#2-1-具体代码" class="headerlink" title="2.1 具体代码"></a>2.1 具体代码</h2><pre><code>#import &quot;ViewController.h&quot;
 #import &lt;AVFoundation/AVFoundation.h&gt;
 #import &lt;AssetsLibrary/AssetsLibrary.h&gt;
 

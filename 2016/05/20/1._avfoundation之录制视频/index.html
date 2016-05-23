@@ -92,7 +92,7 @@ AVCaptureSession:媒体（音、视频）捕捉会话类。负责把捕获的音
 
 1. AVFoundation之录制视频首先我们来了解一下AVFoundation框架录制视频，需要用到哪些类:
 AVCaptureSession:媒体（音、视频）捕捉会话类。负责把捕获的音视频数据输出到输出设备上，一个AVCaptureSessio">
-<meta property="og:updated_time" content="2016-05-23T15:48:11.000Z">
+<meta property="og:updated_time" content="2016-05-23T15:56:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AVFoundation学习(一)">
 <meta name="twitter:description" content="最近因为工作原因，要给项目添加录制视频功能，录制时，界面上还要有动态贴纸，最后后成一个视频。所以要学习AVFoundation框架，并记录下来。
@@ -286,9 +286,8 @@ AVCaptureDeviceInput:录制期间输入数据的管理对象，可以根据AVCap
 AVCaptureVideoPreviewLayer:相机拍摄预览层，可以实时查看拍照和录制效果，创建该对象需要知道对应的AVCaptureSession对象
 AVCaptureDevideOutput:输出数据的管理对象，用于接收输出的数据，通常使用其子类AVCaptureAudioDataOutput、AVCaptureStillImageOutput、AVCaptureVideoDataOutput、AVCaptureFileOutput, 该对象将会被添加到AVCaptureSession中管理。
 注意：前面几个对象的输出数据都是NSData类型，而AVCaptureFileOutput代表数据以文件形式输出，类似的，AVCcaptureFileOutput也不会直接创建使用，通常会使用其子类：AVCaptureAudioFileOutput、AVCaptureMovieFileOutput。当把一个输入或者输出添加到AVCaptureSession之后AVCaptureSession就会在所有相符的输入、输出设备之间建立连接（AVCaptionConnection)。
-</code></pre><p>##具体流程<br>AVCaptureSession通过把设备的麦克风/摄像头(AVCaptureDevice)实例化数据流输入到AVCaptureDeviceInput对象后，再建立连接(AVCaptureConnection)将录制数据通过数据流输出对象(AVCaptureDeviceOutput)导出，录制时通过相机预览层(AVCaptureVideoPreviewLayer)实时预览。</p>
-<p>##具体代码</p>
-<pre><code>#import &quot;ViewController.h&quot;
+</code></pre><h2 id="2-具体流程"><a href="#2-具体流程" class="headerlink" title="2. 具体流程"></a>2. 具体流程</h2><p>AVCaptureSession通过把设备的麦克风/摄像头(AVCaptureDevice)实例化数据流输入到AVCaptureDeviceInput对象后，再建立连接(AVCaptureConnection)将录制数据通过数据流输出对象(AVCaptureDeviceOutput)导出，录制时通过相机预览层(AVCaptureVideoPreviewLayer)实时预览。</p>
+<h2 id="2-1-具体代码"><a href="#2-1-具体代码" class="headerlink" title="2.1 具体代码"></a>2.1 具体代码</h2><pre><code>#import &quot;ViewController.h&quot;
 #import &lt;AVFoundation/AVFoundation.h&gt;
 #import &lt;AssetsLibrary/AssetsLibrary.h&gt;
 
@@ -563,7 +562,7 @@ AVCaptureDevideOutput:输出数据的管理对象，用于接收输出的数据�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-AVFoundation之录制视频"><span class="nav-number">1.</span> <span class="nav-text">1. AVFoundation之录制视频</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-AVFoundation之录制视频"><span class="nav-number">1.</span> <span class="nav-text">1. AVFoundation之录制视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-具体流程"><span class="nav-number">1.1.</span> <span class="nav-text">2. 具体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-具体代码"><span class="nav-number">1.2.</span> <span class="nav-text">2.1 具体代码</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
