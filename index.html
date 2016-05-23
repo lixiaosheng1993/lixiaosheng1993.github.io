@@ -229,6 +229,257 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/20/1._avfoundation之录制视频/" itemprop="url">
+                  AVFoundation学习(一)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-20T01:56:36+08:00" content="2016-05-20">
+              2016-05-20
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最近因为工作原因，要给项目添加录制视频功能，录制时，界面上还要有动态贴纸，最后后成一个视频。所以要学习AVFoundation框架，并记录下来。</p>
+</blockquote>
+<h1 id="1-AVFoundation之录制视频"><a href="#1-AVFoundation之录制视频" class="headerlink" title="1. AVFoundation之录制视频"></a>1. AVFoundation之录制视频</h1><p>首先我们来了解一下AVFoundation框架录制视频，需要用到哪些类:</p>
+<pre><code>AVCaptureSession:媒体（音、视频）捕捉会话类。负责把捕获的音视频数据输出到输出设备上，一个AVCaptureSession可以有多个输入输出。
+AVCaptureDevice:输入设备，其实就是物理设备映射到程序中的一个对象，通过这个类可以操作闪光灯、手电筒、聚焦模式。
+AVCaptureDeviceInput:录制期间输入数据的管理对象，可以根据AVCaptureDevice创建对应的AVCaptureDeviceInput对象,该对象会添加到AVCaptureSession对象中管理
+AVCaptureVideoPreviewLayer:相机拍摄预览层，可以实时查看拍照和录制效果，创建该对象需要知道对应的AVCaptureSession对象
+AVCaptureDevideOutput:输出数据的管理对象，用于接收输出的数据，通常使用其子类AVCaptureAudioDataOutput、AVCaptureStillImageOutput、AVCaptureVideoDataOutput、AVCaptureFileOutput, 该对象将会被添加到AVCaptureSession中管理。
+注意：前面几个对象的输出数据都是NSData类型，而AVCaptureFileOutput代表数据以文件形式输出，类似的，AVCcaptureFileOutput也不会直接创建使用，通常会使用其子类：AVCaptureAudioFileOutput、AVCaptureMovieFileOutput。当把一个输入或者输出添加到AVCaptureSession之后AVCaptureSession就会在所有相符的输入、输出设备之间建立连接（AVCaptionConnection)。
+</code></pre><p>##具体流程<br>AVCaptureSession通过把设备的麦克风/摄像头(AVCaptureDevice)实例化数据流输入到AVCaptureDeviceInput对象后，再建立连接(AVCaptureConnection)将录制数据通过数据流输出对象(AVCaptureDeviceOutput)导出，录制时通过相机预览层(AVCaptureVideoPreviewLayer)实时预览。</p>
+<p>##具体代码</p>
+<pre><code>#import &quot;ViewController.h&quot;
+#import &lt;AVFoundation/AVFoundation.h&gt;
+#import &lt;AssetsLibrary/AssetsLibrary.h&gt;
+
+@interface ViewController ()&lt;AVCaptureFileOutputRecordingDelegate&gt;
+
+//捕捉会话，负责把捕获的音视频数据输出到输出设备
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+//摄像头输入对象
+@property (nonatomic, strong) AVCaptureDeviceInput *videoCaptureDeviceInput;
+//麦克风输入对象
+@property (nonatomic, strong) AVCaptureDeviceInput *audioCaptureDeviceInput;
+//视频输出流
+@property (nonatomic, strong) AVCaptureMovieFileOutput *captureMovieFilrOutput;
+//相机预览层
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+
+@property (nonatomic, strong) UIButton *recordButton;
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+//    初始化捕捉会话类
+    self.captureSession = [[AVCaptureSession alloc] init];
+//    设置分辨率
+    if ([_captureSession canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
+        [_captureSession setSessionPreset:AVCaptureSessionPreset1280x720];
+    }
+
+//    初始化输入设备, 后置摄像头，添加音频
+    NSError *error = nil;
+    AVCaptureDevice *cameraCaptureDevice = [self getCameraDeviceWithPosition:AVCaptureDevicePositionBack];
+    AVCaptureDevice *audioCaptureDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
+//    根据输入设备初始化输入数据的管理对象
+    self.videoCaptureDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:cameraCaptureDevice error:&amp;error];
+    self.audioCaptureDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:audioCaptureDevice error:&amp;error];
+
+//    初始化输出对象，获得输出数据
+    self.captureMovieFilrOutput = [[AVCaptureMovieFileOutput alloc] init];
+
+//    将输入数据的管理对象添加到会话中
+    if ([_captureSession canAddInput:_videoCaptureDeviceInput]) {
+        [_captureSession addInput:_videoCaptureDeviceInput];
+        [_captureSession addInput:_audioCaptureDeviceInput];
+    }
+
+//    将输出数据的管理对象添加到会话中
+    if ([_captureSession canAddOutput:_captureMovieFilrOutput]) {
+        [_captureSession addOutput:_captureMovieFilrOutput];
+    }
+
+//    建立连接
+    AVCaptureConnection *captureConnection = [_captureMovieFilrOutput connectionWithMediaType:AVMediaTypeVideo];
+//    设置视频自动防抖
+    if ([captureConnection isVideoMirroringSupported]) {
+        captureConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+    }
+
+//    初始化预览层
+    self.captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+    _captureVideoPreviewLayer.frame = self.view.layer.frame;
+//    填充模式
+    _captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//    预览图层和视频方向保持一致
+    captureConnection.videoOrientation = [[_captureVideoPreviewLayer connection] videoOrientation];
+    [self.view.layer insertSublayer:_captureVideoPreviewLayer below:self.view.layer];
+
+
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(414/2, 736-100, 100, 100)];
+    [_recordButton setTitle:@&quot;录制&quot; forState:UIControlStateNormal];
+    [_recordButton addTarget:self action:@selector(recordAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_recordButton];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+//    开始捕捉会话
+    [self.captureSession startRunning];
+}
+
+- (AVCaptureDevice *)getCameraDeviceWithPosition:(AVCaptureDevicePosition)position
+{
+//    获取所有输入设备
+    NSArray *cameras = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *camera in cameras) {
+        if (camera.position == position) {
+            return camera;
+        }
+    }
+    return nil;
+}
+
+- (void)recordAction
+{
+    if (![_captureMovieFilrOutput isRecording]) {
+        [_recordButton setTitle:@&quot;停止&quot; forState:UIControlStateNormal];
+//        保存视频路径
+        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *outputFilePath = [documentPath stringByAppendingString:@&quot;/myMovie.mov&quot;];
+//        开始录制并写到输出路径
+        [self.captureMovieFilrOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
+    } else {
+//        停止录制
+        [_recordButton setTitle:@&quot;录制&quot; forState:UIControlStateNormal];
+        [_captureMovieFilrOutput stopRecording];
+    }
+}
+
+#pragma mark - AVCaptureFileOutputRecordingDelegate
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
+{
+    NSLog(@&quot;开始录制&quot;);
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
+{
+    NSLog(@&quot;结束录制&quot;);
+
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileURL]) {
+//        保存到相册
+        [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
+
+            if (error) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;Error&quot; message:@&quot;Video Saving Failed&quot;
+                                                               delegate:nil cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil];
+                [alert show];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;Video Saved&quot; message:@&quot;Saved To Photo Album&quot;
+                                                               delegate:self cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    }
+
+}
+
+@end
+</code></pre><p>#后记：<br>好了，最简单视频录制已经完成，下篇将会继续记录如何在相机预览层添加动态贴纸，并且最后合成一个有动态贴纸的视频。</p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/04/KVC和KVO的原理及使用（二）/" itemprop="url">
                   KVC和KVO的原理及使用（二）
                 </a>
@@ -778,7 +1029,7 @@ gexo deploy
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
