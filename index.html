@@ -229,6 +229,140 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/18/ios小集(1)/" itemprop="url">
+                  iOS小集(1)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-18T00:33:47+08:00" content="2016-07-18">
+              2016-07-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当你设置按钮类型为UIButtonTypeRoundedRect时。当你改变按钮的title时，会出现渐变的动画效果，这就是隐式动画，当我们不想要这种效果时。可以使用ios7添加的方法。UIView的performWithoutAnimation:方法。这个方法只是一个简单的封装。封装如下</p>
+<pre><code>[CATransaction begin];
+[CATransaction setDisableActions:YES];
+view.frame = CGRectMake(&lt;#CGFloat x#&gt;, &lt;#CGFloat y#&gt;, &lt;#CGFloat width#&gt;, &lt;#CGFloat height#&gt;);
+[CATransaction commit];
+</code></pre><p>它只对block中动画有影响，对block外的动画没影响。</p>
+<p>下面是具体代码</p>
+<pre><code>self.button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+self.button.frame = CGRectMake(50, 50, 100, 100);
+self.button.backgroundColor = [UIColor redColor];
+[self.button setTitle:@&quot;asdasdasd&quot; forState:UIControlStateNormal];
+[self.view addSubview:self.button];
+
+//    动画不会执行
+//    [UIView performWithoutAnimation:^{
+//        [UIView animateWithDuration:3.0 animations:^{
+//
+//            self.button.frame = CGRectMake(100, 100, 100, 100);
+//        }];
+//    }];
+
+////    有动画效果
+//    [UIView animateWithDuration:3.0 animations:^{
+//        self.button.frame = CGRectMake(100, 100, 100, 100);
+//    }];
+//
+////    没有动画效果
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [UIView performWithoutAnimation:^{
+//           self.button.frame = CGRectMake(100, 100, 100, 100);
+//        }];
+//    });
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////        关闭隐式动画
+//        [UIView performWithoutAnimation:^{
+//            [self.button setTitle:@&quot;bbbbb&quot; forState:UIControlStateNormal];
+//            [self.button layoutIfNeeded];
+//        }];
+//        
+//    });
+</code></pre>
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/20/1._avfoundation之录制视频/" itemprop="url">
                   AVFoundation学习(一)
                 </a>
@@ -1028,7 +1162,7 @@ gexo deploy
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
